@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True P2P File Share - Upload</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="row w-100">
+            <div class="col-12">
+                <div class="card shadow-lg border-0">
+                    <!-- Header Section -->
+                    <div class="card-header bg-success text-white text-center py-4">
+                        <h1 class="mb-0">
+                            <i class="fas fa-share-alt me-3"></i>
+                            True P2P File Share
+                        </h1>
+                        <p class="mb-0 mt-2">Direct peer-to-peer file transfer using WebRTC DataChannels</p>
+                    </div>
+                    
+                    <div class="card-body p-5">
+                        <!-- File Selection Section -->
+                        <div class="mb-4">
+                            <label for="fileInput" class="form-label fw-bold">
+                                <i class="fas fa-file-upload me-2"></i>Select Files for Direct P2P Sharing
+                            </label>
+                            <input type="file" id="fileInput" class="form-control form-control-lg" multiple>
+                            <div class="form-text">
+                                Files will be transferred directly between peers using WebRTC
+                            </div>
+                        </div>
+
+                        <!-- WebRTC Status Section -->
+                        <div class="mb-4" id="webrtcStatus" style="display: none;">
+                            <div class="alert alert-info">
+                                <h6 class="alert-heading">
+                                    <i class="fas fa-network-wired me-2"></i>WebRTC Status
+                                </h6>
+                                <div id="connectionStatus">Initializing WebRTC connection...</div>
+                                <div id="dataChannelStatus" class="mt-2">Setting up data channel...</div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Section -->
+                        <div class="mb-4" id="progressSection" style="display: none;">
+                            <div class="progress mb-3" style="height: 25px;">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                                     role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div id="progressText" class="text-center fw-bold">Preparing direct P2P transfer...</div>
+                        </div>
+
+                        <!-- Peer Status -->
+                        <div class="mb-4" id="peerStatus" style="display: none;">
+                            <div class="alert alert-success">
+                                <h6 class="alert-heading">
+                                    <i class="fas fa-users me-2"></i>Peer Status
+                                </h6>
+                                <div id="peerConnection">Waiting for peer connection...</div>
+                                <div id="transferStatus" class="mt-2">Ready for direct transfer...</div>
+                            </div>
+                        </div>
+
+                        <!-- Share URL Section -->
+                        <div class="mb-4" id="shareResult" style="display: none;">
+                            <label class="form-label fw-bold">
+                                <i class="fas fa-link me-2"></i>Shareable URL
+                            </label>
+                            <div class="input-group">
+                                <input type="text" id="shareUrl" class="form-control" readonly>
+                                <button class="btn btn-success" onclick="copyUrl()">
+                                    <i class="fas fa-copy me-1"></i>Copy URL
+                                </button>
+                            </div>
+                            <div class="form-text">
+                                Send this URL to recipients for direct P2P file download
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="text-center">
+                            <button id="uploadBtn" class="btn btn-success btn-lg me-3" onclick="startTrueP2PUpload()">
+                                <i class="fas fa-rocket me-2"></i>Start Direct P2P Sharing
+                            </button>
+                            <button id="resetBtn" class="btn btn-secondary btn-lg" onclick="resetForm()" style="display: none;">
+                                <i class="fas fa-refresh me-2"></i>Reset
+                            </button>
+                        </div>
+
+                        <!-- Navigation Links -->
+                        <div class="text-center mt-4">
+                            <a href="/" class="btn btn-outline-secondary">
+                                <i class="fas fa-refresh me-2"></i>Refresh
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src="{{ url_for('static', filename='js/protocol.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+</body>
+</html>

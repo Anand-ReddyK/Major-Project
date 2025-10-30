@@ -1,0 +1,453 @@
+/**
+ * True P2P File Sharing Styles
+ * 
+ * This stylesheet provides the visual design for the True P2P file sharing application.
+ * It includes modern, responsive styling with Bootstrap integration and custom components
+ * for the direct WebRTC P2P file sharing interface.
+ */
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+/* Card Styling */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border: none;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.card-body {
+    padding: 3rem;
+}
+
+/* Form Styling */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.form-control-lg {
+    padding: 1rem 1.25rem;
+    font-size: 1.125rem;
+}
+
+/* Button Styling */
+.btn {
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+    box-shadow: 0 4px 15px rgba(86, 171, 47, 0.4);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(86, 171, 47, 0.6);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4);
+}
+
+.btn-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 172, 254, 0.6);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #adb5bd 100%);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+}
+
+.btn-outline-primary {
+    border: 2px solid #007bff;
+    color: #007bff;
+    background: transparent;
+}
+
+.btn-outline-primary:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-outline-warning {
+    border: 2px solid #ffc107;
+    color: #ffc107;
+    background: transparent;
+}
+
+.btn-outline-warning:hover {
+    background: #ffc107;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    background: transparent;
+}
+
+.btn-outline-secondary:hover {
+    background: #6c757d;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Progress Bar Styling */
+.progress {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+    border-radius: 10px;
+    transition: width 0.6s ease;
+}
+
+.progress-bar-striped {
+    background-image: linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.15) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 1rem 1rem;
+}
+
+.progress-bar-animated {
+    animation: progress-bar-stripes 1s linear infinite;
+}
+
+@keyframes progress-bar-stripes {
+    0% {
+        background-position-x: 1rem;
+    }
+}
+
+/* Alert Styling */
+.alert {
+    border-radius: 10px;
+    border: none;
+    padding: 1rem 1.25rem;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+    color: #0c5460;
+    border-left: 4px solid #17a2b8;
+}
+
+.alert-warning {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    color: #856404;
+    border-left: 4px solid #ffc107;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+/* Status Icons */
+.fa-check-circle {
+    color: #28a745;
+}
+
+.fa-exclamation-triangle {
+    color: #ffc107;
+}
+
+.fa-info-circle {
+    color: #17a2b8;
+}
+
+.fa-times {
+    color: #dc3545;
+}
+
+.fa-network-wired {
+    color: #6f42c1;
+}
+
+.fa-users {
+    color: #20c997;
+}
+
+/* Spinner Styling */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3em;
+}
+
+/* File Input Styling */
+input[type="file"] {
+    cursor: pointer;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    background: linear-gradient(135deg, #4a9a2a 0%, #96d4b8 100%);
+}
+
+/* Input Group Styling */
+.input-group .btn {
+    border-radius: 0 10px 10px 0;
+    border-left: none;
+}
+
+.input-group .form-control {
+    border-radius: 10px 0 0 10px;
+}
+
+/* Navigation Links */
+.text-center .btn {
+    margin: 0.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 2rem 1.5rem;
+    }
+    
+    .btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+    }
+    
+    .form-control-lg {
+        padding: 0.875rem 1rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1.5rem 1rem;
+    }
+    
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .text-center .btn {
+        display: block;
+        width: 100%;
+        margin: 0.5rem 0;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #4a9a2a 0%, #96d4b8 100%);
+}
+
+/* WebRTC-specific styling */
+.webrtc-status {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.peer-status {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+/* P2P connection animation */
+.p2p-connecting {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Data channel status indicators */
+.data-channel-active {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.data-channel-inactive {
+    background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* WebRTC connection states */
+.webrtc-connecting {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.webrtc-connected {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.webrtc-failed {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Direct P2P transfer indicators */
+.direct-transfer {
+    background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Peer connection status */
+.peer-connected {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.peer-disconnected {
+    background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    display: inline-block;
+}

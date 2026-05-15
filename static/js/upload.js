@@ -18,6 +18,7 @@ let trueP2P = null;
 let selectedFiles = [];
 let transferId = null;
 let socket = null;
+let isUploading = false;
 
 // DOM elements
 const fileInput = document.getElementById('fileInput');
@@ -144,6 +145,11 @@ async function startTrueP2PUpload() {
         return;
     }
 
+    if (isUploading) {
+        return;
+    }
+    isUploading = true;
+
     try {
         console.log('True P2P Upload: Starting upload process');
 
@@ -199,6 +205,10 @@ async function startTrueP2PUpload() {
         console.error('True P2P Upload: Upload failed:', error);
         showError('Upload failed: ' + error.message);
         resetForm();
+    } finally {
+        if (!transferId) {
+            isUploading = false;
+        }
     }
 }
 
@@ -381,6 +391,7 @@ function resetForm() {
     selectedFiles = [];
     trueP2P = null;
     transferId = null;
+    isUploading = false;
 
     // Reset file input
     fileInput.value = '';

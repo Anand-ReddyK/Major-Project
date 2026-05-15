@@ -39,6 +39,8 @@ class TrueP2PProtocol {
         // WebRTC components
         this.pc = null;
         this.dataChannel = null;
+        this.seenIceCandidateTypes = new Set();
+        // STUN discovers public addresses; TURN relays when direct P2P fails (common on mobile/cellular NAT).
         this.iceServers = [
             { urls: 'stun:stun.l.google.com:19302' },
             { urls: 'stun:stun1.l.google.com:19302' },
@@ -75,12 +77,32 @@ class TrueP2PProtocol {
             // Handle ICE candidates
             this.pc.onicecandidate = (event) => {
                 if (event.candidate) {
-                    console.log('True P2P: ICE candidate generated');
+                    this.seenIceCandidateTypes.add(event.candidate.type);
+                    console.log('True P2P: ICE candidate generated:', event.candidate.type);
                     this.sendToSignalingServer('webrtc_ice_candidate', {
                         transferId: this.transferId,
                         candidate: event.candidate
                     });
+                } else {
+                    console.log('True P2P: ICE gathering complete. Candidate types:', Array.from(this.seenIceCandidateTypes).join(', ') || 'none');
+                    if (!this.seenIceCandidateTypes.has('relay')) {
+                        console.warn('True P2P: No TURN relay candidate gathered. Public TURN may be unreachable, blocked, or rate-limited.');
+                    }
                 }
+            };
+
+            this.pc.onicecandidateerror = (event) => {
+                console.warn('True P2P: ICE candidate error:', {
+                    address: event.address,
+                    port: event.port,
+                    url: event.url,
+                    errorCode: event.errorCode,
+                    errorText: event.errorText
+                });
+            };
+
+            this.pc.onicegatheringstatechange = () => {
+                console.log('True P2P: ICE gathering state:', this.pc.iceGatheringState);
             };
 
             // Handle connection state changes
@@ -91,7 +113,11 @@ class TrueP2PProtocol {
                     console.log('True P2P: Peer connection established');
                 } else if (this.pc.connectionState === 'failed') {
                     this.status = 'failed';
-                    console.error('True P2P: Peer connection failed');
+                    console.error(
+                        'True P2P: Peer connection failed (ICE:',
+                        this.pc.iceConnectionState,
+                        '). Direct P2P may be blocked by NAT; TURN relay is required.'
+                    );
                 }
             };
 
